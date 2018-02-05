@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>​
+
+<head>​
+    <title>​Example HTML Page​</title>​</head>​
+
+<body>​
+    <!-- 这里放内容 -->
+    <div id=​ "myDiv" align=​ "left" my_special_attribute=​ "hello!">​</div>​
+    <!-- 下面是js片段的添加方式 -->
+    <script type=​ "text/​javascript">​    var person = new Object();
+    person.name = "Nicholas";
+    //alert(person.name);
+    console.log(person.name);
+
+    function outputNumbers(count) {
+      for (var i = 0; i < count; i++) {
+        console.log(i);
+      }
+      console.log(i);
+      //计数
+    }
+
+    outputNumbers(5);
+
+    var fragment = document.createDocumentFragment();
+    var ul = document.getElementById("myList");
+    var li = null;
+    for (var i=0; i < 3; i++){
+        li = document.createElement("li");
+        li.appendChild(document.createTextNode("Item " + (i+1)));
+        fragment.appendChild(li);
+    }
+    ul.appendChild(fragment);
+  </script>​
+    <!-- 下面注释的代码是js独立文件的添加方式,远程js的加载也是一样 -->
+    <!--<script type="text/javascript" src="example1.js"></script>-->
+    <div class=​ "message">​Hello world!​</div>​</body>​
+
+</html>

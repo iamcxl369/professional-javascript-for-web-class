@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Related Elements Example</title>
+</head>
+
+<body>
+
+
+    <script type="text/javascript">
+
+        function createXHR() {
+            if (typeof XMLHttpRequest != "undefined") {
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject != "undefined") {
+                if (typeof arguments.callee.activeXString != "string") {
+                    var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0",
+                        "MSXML2.XMLHttp"],
+                        i, len;
+
+                    for (i = 0, len = versions.length; i < len; i++) {
+                        try {
+                            new ActiveXObject(versions[i]);
+                            arguments.callee.activeXString = versions[i];
+                            break;
+                        } catch (ex) {
+                            //跳过
+                        }
+                    }
+                }
+                return new ActiveXObject(arguments.callee.activeXString);
+            } else {
+                throw new Error("No XHR object available.");
+            }
+
+        }
+
+        // var xhr = createXHR();
+        // xhr.onreadystatechange = function () {
+        //     if (xhr.readyState == 4) {
+        //         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+        //             alert(xhr.responseText);
+        //         } else {
+        //             // alert("Request was unsuccessful: " + xhr.status);
+        //             console.log("Request was unsuccessful: " + xhr.status);
+        //         }
+        //     }
+        // };
+        // xhr.open("get", "http://www.baidu.com/", true);
+        // xhr.send(null);
+
+        function createCORSRequest(method, url) {
+            var xhr = new XMLHttpRequest();
+            if ("withCredentials" in xhr) {
+                xhr.open(method, url, true);
+            } else if (typeof XDomainRequest != "undefined") {
+                vxhr = new XDomainRequest();
+                xhr.open(method, url);
+            } else {
+                xhr = null;
+            }
+            return xhr;
+        }
+        var request = createCORSRequest("get", "http://www.baidu.com/");
+        if (request) {
+            request.onload = function () {
+                //对 request.responseText 进行处理
+            };
+            request.send();
+        }
+
+        var img = new Image();
+        img.onload = img.onerror = function () {
+            alert("Done!");
+        };
+        img.src = "http://www.baidu.com/";
+
+        function handleResponse(response) {
+            alert("You’re at IP address " + response.ip + ", which is in " +
+                response.city + ", " + response.region_name);
+        }
+        var script = document.createElement("script");
+        script.src = "http://freegeoip.net/json/?callback=handleResponse";
+        document.body.insertBefore(script, document.body.firstChild);
+
+    </script>
+</body>
+
+</html>

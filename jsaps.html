@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Example HTML Page</title>
+</head>
+
+<body>
+  <!-- 这里放内容 -->
+
+  <div id="myDiv" align="left" my_special_attribute="hello!"></div>
+
+  <ul id="myList">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+
+  <table border="1" width="100%">
+    <tbody>
+      <tr>
+        <td>Cell 1,1</td>
+        <td>Cell 2,1</td>
+      </tr>
+      <tr>
+        <td>Cell 1,2</td>
+        <td>Cell 2,2</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form method="post">
+    <input type="text" name="username" value="">
+    <input id= "myBtn" type="button" value="Echo Username" onclick="showMessage()">
+  </form>
+
+  <!-- 下面是js片段的添加方式 -->
+  <script type="text/javascript">
+
+    function showMessage(){
+      alert("Hello world!");
+    }
+
+    //DOM0 级事件
+    var btn = document.getElementById("myBtn");
+    btn.onclick = function(){
+      alert(this.id);
+      //"myBtn"
+    };
+    btn.onclick = null;//删除事件处理程序
+
+    //DOM2 级事件
+    var btn = document.getElementById("myBtn");
+    btn.addEventListener("click", function(){
+    alert(this.id);
+    }, false);
+    btn.addEventListener("click", function(){
+    alert("Hello world!");
+    }, false);
+
+    //正确用法,否则无法删除事件
+    var handler = function(){
+      alert(this.id);
+    };
+    btn.addEventListener("click", handler, false);
+    btn.removeEventListener("click", handler, false);
+
+    var person = new Object();
+    person.name = "Nicholas";
+    //alert(person.name);
+    console.log(person.name);
+
+    function outputNumbers(count) {
+      for (var i = 0; i < count; i++) {
+        console.log(i);
+      }
+      console.log(i);
+      //计数
+    }
+
+    outputNumbers(5);
+
+    var element = document.createElement("div");
+    element.className = "message";
+    var textNode = document.createTextNode("Hello world!");
+    element.appendChild(textNode);
+    document.body.appendChild(element);
+    var newNode = element.firstChild.splitText(5);
+    // alert(element.firstChild.nodeValue);
+    console.log(element.firstChild.nodeValue);
+    //"Hello"
+    // alert(newNode.nodeValue);
+    console.log(newNode.nodeValue);
+    //" world!"
+    // alert(element.childNodes.length);
+    console.log(element.childNodes.length);
+    //2
+
+
+    /**
+    下面代码片段可以copy出来直接在console中执行,执行完毕后就直接表现在界面上了.
+    **/
+    var fragment = document.createDocumentFragment();
+    var ul = document.getElementById("myList");
+    var li = null;
+    for (var i = 0; i < 3; i++) {
+      li = document.createElement("li");
+      li.appendChild(document.createTextNode("Item new" + (i + 1)));
+      fragment.appendChild(li);
+    }
+    ul.appendChild(fragment);
+
+    /**
+    下面代码片段可以copy出来直接在console中执行,执行完毕后就直接表现在界面上了.
+    **/
+    //创建 table
+    var table = document.createElement("table");
+    table.border = 1;
+    table.width = "100%";
+    //创建 tbody
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    //创建第一行
+    var row1 = document.createElement("tr");
+    tbody.appendChild(row1);
+    var cell1_1 = document.createElement("td");
+    cell1_1.appendChild(document.createTextNode("Cell 1,1"));
+    row1.appendChild(cell1_1);
+    var cell2_1 = document.createElement("td");
+    cell2_1.appendChild(document.createTextNode("Cell 2,1"));
+    row1.appendChild(cell2_1);
+    //创建第二行
+    var row2 = document.createElement("tr");
+    tbody.appendChild(row2);
+    var cell1_2 = document.createElement("td");
+    cell1_2.appendChild(document.createTextNode("Cell 1,2"));
+    row2.appendChild(cell1_2);
+    var cell2_2 = document.createElement("td");
+    cell2_2.appendChild(document.createTextNode("Cell 2,2"));
+    row2.appendChild(cell2_2);
+    //将表格添加到文档主体中
+    document.body.appendChild(table);
+
+    /**
+    下面代码片段可以copy出来直接在console中执行,执行完毕后就直接表现在界面上了.
+    **/
+    //创建 table
+    var table = document.createElement("table");
+    table.border = 1;
+    table.width = "100%";
+    //创建 tbody
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    //创建第一行
+    tbody.insertRow(0);
+    tbody.rows[0].insertCell(0);
+    tbody.rows[0].cells[0].appendChild(document.createTextNode("Cell 1,1"));
+    tbody.rows[0].insertCell(1);
+    tbody.rows[0].cells[1].appendChild(document.createTextNode("Cell 2,1"));
+    //创建第二行
+    tbody.insertRow(1);
+    tbody.rows[1].insertCell(0);
+    tbody.rows[1].cells[0].appendChild(document.createTextNode("Cell 1,2"));
+    tbody.rows[1].insertCell(1);
+    tbody.rows[1].cells[1].appendChild(document.createTextNode("Cell 2,2"));
+    //将表格添加到文档主体中
+    document.body.appendChild(table);
+  </script>
+
+  <!-- 下面注释的代码是js独立文件的添加方式,远程js的加载也是一样 -->
+  <!--<script type="text/javascript" src="example1.js"></script>-->
+</body>
+
+</html>
